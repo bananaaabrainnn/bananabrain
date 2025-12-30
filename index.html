@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BANANA BRAIN | 香蕉的腦世界</title>
     <style>
+        html, body, a, button { cursor: none !important; }
+
+        .cursor-dot {
+            width: 8px; 
+            height: 8px;
+            background-color: #FFE14D;
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 10000;
+            pointer-events: none;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #FFE14D;
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: all 0.15s ease-out; /* 延遲跟隨的核心 */
+        }
+
+        .cursor-active {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 225, 77, 0.2);
+            border: none;
+        }
+
         :root {
             --bg-color: #222222; 
             --text-color: #FFFFFF;
@@ -216,6 +251,10 @@
         }
 
         @media (max-width: 600px) { 
+            .cursor-dot, .cursor-outline { display: none; }
+                html, body, a, button { cursor: auto !important;
+            }
+
             .logo {
                 font-size: 16px;
                 letter-spacing: 2px;
@@ -294,7 +333,7 @@
     </style>
 </head>
 <body>
-
+    <div class="cursor-dot"></div> <div class="cursor-outline"></div>
 <nav>
     <div class="nav-container">
         <div class="logo">BANANA BRAIN</div>
@@ -395,6 +434,29 @@
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" style="max-width:90%; max-height:90%;"></div>
 
 <script>
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        dot.style.left = `${posX}px`;
+        dot.style.top = `${posY}px`;
+
+        outline.style.left = `${posX}px`;
+        outline.style.top = `${posY}px`;
+    });
+
+    document.querySelectorAll('a, .work-item, .social-icon, button').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            outline.classList.add('cursor-active');
+        });
+        link.addEventListener('mouseleave', () => {
+            outline.classList.remove('cursor-active');
+        });
+    });
+
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const calendarImages = ['images/calendar.jpg', 'images/calendar_2.jpg'];
@@ -430,9 +492,7 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const info = entry.target.querySelector('.work-info');
-                if (info) {
-                    info.classList.add('is-visible');
-                }
+                if (info) info.classList.add('is-visible');
                 workObserver.unobserve(entry.target);
             }
         });

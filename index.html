@@ -21,15 +21,24 @@
         /* 導覽列 */
         nav {
             position: fixed;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 90%; max-width: 1200px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 0;
+            top: 0; 
+            left: 0;
+            width: 100%;
             background-color: rgba(34, 34, 34, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
         }
 
         .logo { 
@@ -37,6 +46,7 @@
             font-weight: bold; 
             letter-spacing: 3px; 
             text-transform: uppercase; 
+            margin: 0;
         }
 
         .menu { display: flex; align-items: center; gap: 15px; }
@@ -206,6 +216,16 @@
         }
 
         @media (max-width: 600px) { 
+            .logo {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .menu a {
+                font-size: 12px;
+                gap: 10px;
+            }
+
             .grid { grid-template-columns: 1fr; } 
             .news-section { 
                 flex-direction: column;
@@ -223,13 +243,17 @@
             .news-btn { padding: 8px 40px;
             }
 
-            .news-section h2 { font-size: 24px; margin-bottom: 20px;
+            .news.news-title {
+                font-size: 18px
+                letter-spacing: 3px
+                line-height: 1.4;
+                margin-top: 10px;
+                text-align: center;
             }
 
-            .news-section p { 
-                font-size: 12px; 
-                line-height: 1.6;
-                padding: 0 15px;
+            .news-section { 
+                gap: 15px;
+                margin-bottom: 40px;
             }
 
             .about-section h2 { font-size: 24px; margin-bottom: 20px;
@@ -247,17 +271,20 @@
 <body>
 
 <nav>
-    <div class="logo">BANANA BRAIN</div>
-    <div class="menu">
-        <a href="#works">Works</a>
-        <a href="#shop">Shop</a>
-        <a href="#about">About</a>
-        <a href="https://www.instagram.com/cyj___liu" target="_blank" class="social-icon">
-            <img src="imagesig-logo.png" alt="Instagram">
-        </a>
-        <a href="https://cara.app/bananabrain" target="_blank" class="social-icon">
-            <img src="cara-app-logo.png" alt="Cara">
-        </a>
+    <div class="nav-container">
+        <div class="logo">BANANA BRAIN</div>
+
+        <div class="menu">
+            <a href="#works">Works</a>
+            <a href="#shop">Shop</a>
+            <a href="#about">About</a>
+            <a href="https://www.instagram.com/cyj___liu" target="_blank" class="social-icon">
+                <img src="imagesig-logo.png" alt="Instagram">
+            </a>
+            <a href="https://cara.app/bananabrain" target="_blank" class="social-icon">
+                <img src="cara-app-logo.png" alt="Cara">
+            </a>
+        </div>
     </div>
 </nav>
 

@@ -413,6 +413,7 @@
     </style>
 </head>
 <body>
+    <canvas id="snowCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
     <div id="loader">
         <div class="loader-content">
             <h1 class="loader-logo">BANANA BRAIN</h1>
@@ -601,6 +602,62 @@
 
         window.addEventListener('scroll', handleScroll);
     });
+    // --- 下雪特效 ---
+    const canvas = document.getElementById('snowCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height, snowflakes = [];
+
+    function initSnow() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        snowflakes = [];
+        // 雪花數量，可以自行調整 (建議 100-150)
+        for (let i = 0; i < 120; i++) {
+            snowflakes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 3 + 1, // 雪花大小
+                speed: Math.random() * 1 + 0.5, // 飄落速度
+                wind: Math.random() * 0.5 - 0.25, // 左右擺動幅度
+                opacity: Math.random() * 0.5 + 0.3 // 透明度
+            });
+        }
+    }
+
+    function drawSnow() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.beginPath();
+        snowflakes.forEach(s => {
+            ctx.moveTo(s.x, s.y);
+            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        });
+        ctx.fill();
+        updateSnow();
+        requestAnimationFrame(drawSnow);
+    }
+
+    function updateSnow() {
+        snowflakes.forEach(s => {
+            s.y += s.speed;
+            s.x += s.wind;
+            // 如果雪花飄出底部，回到頂部
+            if (s.y > height) {
+                s.y = -10;
+                s.x = Math.random() * width;
+            }
+            // 如果飄出左右，從另一邊回來
+            if (s.x > width) s.x = 0;
+            else if (s.x < 0) s.x = width;
+        });
+    }
+
+    window.addEventListener('resize', initSnow);
+    initSnow();
+    drawSnow();
 </script>
 </body>
 </html>

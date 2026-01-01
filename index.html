@@ -56,7 +56,7 @@
         /* 導覽列 */
         nav {
             position: fixed;
-            top: 0; 
+            top: 20; 
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -64,31 +64,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 24px;
             z-index: 1000;
 
             /* --- 核心玻璃質感代碼 --- */
-            background-color: rgba(34, 34, 34, 0.4);
-            backdrop-filter: blur(15px) saturate(150%); /* 降低透明度至 0.4 */
-            -webkit-backdrop-filter: blur(15px) saturate(150%); /* 支援 Safari 瀏覽器 */
+            background-color: rgba(34, 34, 34, 0.6);
+            backdrop-filter: blur(15px) saturate(150%) saturate(160%); /* 降低透明度至 0.4 */
+            -webkit-backdrop-filter: blur(15px) saturate(160%); /* 支援 Safari 瀏覽器 */
 
             /* 玻璃邊框感：上方極細白邊，增加光影層次 */
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px; /* 加上圓角會更有精緻感，像手機介面 */
+            border-radius: 16px; /* 加上圓角會更有精緻感，像手機介面 */
 
             /* 微弱陰影 */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
-
-            margin-top: 10px; /* 讓導覽列稍微飄浮，不貼頂部 */
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4); 
+            box-sizing: border-box;
         }
 
         nav .nav-container {
-            width: 90%;
-            max-width: 1200px;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            max-width: none !important;
         }
 
         .logo { 
@@ -266,22 +264,29 @@
         }
 
         @media (max-width: 600px) { 
+            nav {
+            width: 94%;
+            top: 10px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            }
+
             .cursor-dot, .cursor-outline { display: none; }
                 html, body, a, button { cursor: auto !important;
             }
 
             .logo {
-                font-size: 16px;
-                letter-spacing: 2px;
+                font-size: 14px;
+                letter-spacing: 1px;
             }
 
             .menu a {
                 font-size: 12px;
-                gap: 7px;
+                gap: 10px;
             }
 
             .container {
-                margin-top: 70px; 
+                margin-top: 140px !important;
             }
 
             #shop {
